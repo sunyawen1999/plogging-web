@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import React, { createContext, useContext, useState, useEffect } from "react";
-import axios from "axios";
+import apiClient from "@/providers/api/index"; // 使用配置好的 Axios 实例
 
 interface AuthContextType {
     user: { name: string; email: string } | null;
@@ -16,16 +16,17 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     useEffect(() => {
         const fetchUser = async () => {
             try {
-                const res = await axios.get("http://<backend-url>/me", { withCredentials: true });
-                setUser(res.data.user);
-            } catch {
-                setUser(null); 
+                // 使用 apiClient 获取当前用户信息
+                const res = await apiClient.get("/me");
+                setUser(res.data.user); // 设置用户状态
+            } catch (error) {
+                console.error("Failed to fetch user:", error);
+                setUser(null); // 如果请求失败，将用户状态设置为 null
             }
         };
-    
+
         fetchUser();
     }, []);
-    
 
     return (
         <AuthContext.Provider value={{ user, setUser }}>

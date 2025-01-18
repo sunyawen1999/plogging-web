@@ -16,7 +16,7 @@ interface SummaryDialogProps {
   };
 }
 
-const ScanResultDialog: React.FC<SummaryDialogProps> = ({
+const SummaryDialog: React.FC<SummaryDialogProps> = ({
   open,
   onClose,
   summary,
@@ -75,4 +75,4 @@ const ScanResultDialog: React.FC<SummaryDialogProps> = ({
   );
 };
 
-export default ScanResultDialog;
+export default SummaryDialog;
