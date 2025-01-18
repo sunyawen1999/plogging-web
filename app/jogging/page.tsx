@@ -1,40 +1,67 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import ScanResultDialog from '@/components/ScanResultDialog';
 import SummaryDialog from '@/components/SummaryDialog';
 import Header from '@/components/Header';
 import Button from '@/components/Button';
-import { Button as MUIButton } from "@mui/material";
-import { Box, Typography } from '@mui/material';
+import { Button as MUIButton, Box, Typography } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 export default function JoggingPage() {
     const [scanResultOpen, setScanResultOpen] = useState(false);
+    const [isUploading, setIsUploading] = useState(false);
     const [summaryOpen, setSummaryOpen] = useState(false);
     const [scanResult, setScanResult] = useState({ category: '', color: '' });
-    const [summary, setSummary] = useState({ distance: 0, duration: 0, trashCounts: {} });
+    const [summary, setSummary] = useState({ distance: 0, duration: 0,startTime: '',endTime: '',
+        blueNo: 0,
+        greenNo: 0,
+        blackNo: 0 });
+
+    const [timeElapsed, setTimeElapsed] = useState(0); // Seconds elapsed
+
+    // Timer logic
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeElapsed((prev) => prev + 1);
+        }, 1000);
+
+        return () => clearInterval(timer); // Cleanup timer on component unmount
+    }, []);
+
+    // Format time into HH:MM:SS
+    const formatTime = (seconds: number) => {
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
+        return `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+    };
 
     const handleUploadTrash = async (file: File | undefined) => {
         if (!file) return; // Handle the case where no file is selected
         console.log("Uploaded file:", file);
-    
+
         // Simulate fetching scan result from backend
         const mockResult = { category: 'Plastic', color: 'Blue' };
         setScanResult(mockResult);
         setScanResultOpen(true);
     };
-    
+
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0]; // Extract the first selected file
         handleUploadTrash(file); // Pass the file to the upload handler
     };
-    
 
     const handleEndJogging = async () => {
         // Simulate fetching summary from backend
-        const mockSummary = { distance: 5.2, duration: 45, trashCounts: { Plastic: 3, Paper: 2 } };
+        const mockSummary = { distance: 5.2, duration: timeElapsed,
+            startTime: "2025-01-18T08:00:00",
+            endTime: "2025-01-18T09:00:00",
+            blueNo: 3,
+            greenNo: 4,
+            blackNo: 5}
+
         setSummary(mockSummary);
         setSummaryOpen(true);
     };
@@ -58,6 +85,30 @@ export default function JoggingPage() {
                 </Header>
 
                 <div className="flex flex-col items-center gap-6 mt-6">
+                    {/* Timer */}
+                    <Box
+                        sx={{
+                            backgroundColor: "#1e1e1e",
+                            borderRadius: "8px",
+                            padding: "10px 20px",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            width: "auto",
+                        }}
+                    >
+                        <Typography
+                            variant="h5"
+                            sx={{
+                                color: "#66ff99",
+                                fontFamily: "'Courier New', Courier, monospace",
+                                fontWeight: "bold",
+                            }}
+                        >
+                            Jogging Time: {formatTime(timeElapsed)}
+                        </Typography>
+                    </Box>
+
                     {/* Upload Button with File Input */}
                     <Box>
                         <input
@@ -71,17 +122,18 @@ export default function JoggingPage() {
                         <label htmlFor="upload-button-file">
                             <MUIButton
                                 component="span"
-                                className="bg-green-500 hover:bg-green-600 text-white px-6 py-2"
-                                startIcon={<UploadFileIcon />}
+                                className="bg-green-500 hover:bg-green-600 text-black px-6 py-2"
+                                startIcon={<UploadFileIcon focusable="false"  />}
                             >
-                                Upload Trash
+                                Snap and Sort Waste with AI
                             </MUIButton>
                         </label>
                     </Box>
 
+                    {/* End Jogging Button */}
                     <Button
                         onClick={handleEndJogging}
-                        className="bg-green-500 hover:bg-green-600 text-white px-6 py-2"
+                        className="bg-green-500 hover:bg-green-600 text-white px-6 py-2 w-[240px]"
                     >
                         End Jogging
                     </Button>
@@ -92,6 +144,7 @@ export default function JoggingPage() {
                     open={scanResultOpen}
                     onClose={() => setScanResultOpen(false)}
                     result={scanResult}
+                    setIsUploading={setIsUploading} 
                 />
 
                 {/* Summary Dialog */}

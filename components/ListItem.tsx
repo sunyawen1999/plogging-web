@@ -51,11 +51,24 @@ const ListItem: React.FC<ListItemProps> = ({
                   alt="Image"
                 />
             </div>
-            <p className="font-medium truncate py-5 whitespace-normal leading-6 text-white">
-            Plogging is an association and popular movement where the activity itself is about picking up rubbish while jogging. 
-            Plogging is a change of attitude and plowers are proud garbage collectors who do something for our environment and 
-            health before it is too late. Over 3 million people have participated in organized or solo ploggas.
-            Every day, approximately 20,000 people plog in over 100 countries.
+            <p className="font-medium py-5 whitespace-normal leading-6 text-white text-left">
+                <span className="text-lg font-bold">
+                    Plogging
+                </span>
+                <span className="italic">
+                    {" "}is basically jogging but make it eco-friendly — picking up trash while breaking a sweat.
+                </span>
+                <br />
+                <span className="text-green-400 font-semibold">
+                    It’s not just an activity, it’s a vibe.
+                </span>  
+                {" "}Ploggers are proud trash warriors, saving the planet and staying fit, one jog at a time. 🌍💪
+                <br />
+                <strong>
+                    Over <span className="text-yellow-400">3 million people</span> have joined the plogging squad
+                </strong> — from solo missions to epic group clean-ups. 
+                <br />
+                {" "}Every day, around <span className="text-blue-400">20,000 eco-heroes</span> are out there plogging in 100+ countries. Let’s go! 🚀
             </p>
 
         </button>
