@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Plogging Web App
+
+## Overview
+
+The Plogging Web App is designed to promote the eco-friendly activity of **plogging**, which combines **jogging with litter picking**. By engaging in plogging, users can contribute to a cleaner planet while staying active. This project aims to encourage more people to participate in this meaningful activity by making it easy and rewarding to track their efforts.
+
+This is a front-end project for **uOttaHack7**. The back-end project is [here](https://github.com/NakyungIm/plogging.git).
+
+ 
+Visit the [Plogging Web App](https://plogging-4lvm2z691-mias-projects-e03b1640.vercel.app/) to explore the live version.
+
+## Purpose
+
+The app's goal is to motivate people to embrace plogging and take an active role in environmental preservation. Together, we can make our home, Earth, cleaner and greener.
+
+---
+
+## Key Features
+
+1. **Jogging Tracker**
+   - Records the duration and distance of jogging activities.  
+   - Helps users monitor their fitness progress while plogging.
+
+2. **Snap and Sort with AI**  
+   - Users can upload pictures of trash collected during plogging.  
+   - Powered by **OpenAI's image recognition**, the app identifies and categorizes each item, suggesting the correct trash bin for disposal (e.g., recyclable, compostable, general waste).
+
+3. **Plogging History**  
+   - Displays users' past plogging sessions.  
+   - Tracks their environmental contributions over time, inspiring consistent engagement.
+
+---
+
+## Tech Stack
+
+- **Programming Language**: TypeScript  
+- **Frontend Framework**: React  
+- **Styling**: Tailwind CSS  
+- **Server-Side Rendering and Routing**: Next.js  
+- **Deployment**: Vercel  
+
+---
+
+## Deployment
+
+The app is deployed on Vercel and can be accessed via the live link: .
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js and npm installed on your system.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd plogging-web-app
+   ```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. Open the app in your browser at `http://localhost:3000`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Contributing
 
-To learn more about Next.js, take a look at the following resources:
+We welcome contributions from the community! Feel free to submit issues or open pull requests to enhance the project.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Acknowledgments
 
-## Deploy on Vercel
+This project is inspired by the global plogging movement and aims to contribute to a cleaner environment. Special thanks to OpenAI for providing the AI-powered image recognition tools used in this app.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Let’s jog, pick up, and clean together! 💚
