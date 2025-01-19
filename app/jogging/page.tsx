@@ -55,12 +55,12 @@ export default function JoggingPage() {
 
     const handleEndJogging = async () => {
         // Simulate fetching summary from backend
-        const mockSummary = { distance: 5.2, duration: timeElapsed,
-            startTime: "2025-01-18T08:00:00",
-            endTime: "2025-01-18T09:00:00",
-            blueNo: 3,
-            greenNo: 4,
-            blackNo: 5}
+        const mockSummary = { distance: 0.1, duration: 2,
+            startTime: "2025-01-19T09:00:00",
+            endTime: "2025-01-19T10:00:00",
+            blueNo: 1,
+            greenNo: 0,
+            blackNo: 0}
 
         setSummary(mockSummary);
         setSummaryOpen(true);

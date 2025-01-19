@@ -22,8 +22,9 @@ interface SearchProps {
 export const revalidate = 0;
 
 const historyData = [
-  { startTime: '2025-01-18 08:30:00', distance: 5.2, duration: 45, blueNo: 5, greenNo: 6, blackNo: 7 },
-  { startTime: '2025-01-18 08:30:00', distance: 5.2, duration: 45, blueNo: 5, greenNo: 6, blackNo: 7 },
+  { startTime: '2025-01-19 08:30:00', distance: 0.1, duration: 2, blueNo: 1, greenNo: 0, blackNo: 0 },
+  { startTime: '2025-01-18 08:30:00', distance: 3.5, duration: 31, blueNo: 0, greenNo: 1, blackNo: 3 },
+  { startTime: '2025-01-17 09:30:00', distance: 4.2, duration: 45, blueNo: 2, greenNo: 0, blackNo: 4 },
 ];
 
 
@@ -80,6 +81,9 @@ const History = async ({searchParams}: SearchProps) => {
                                 Date
                             </TableCell>
                             <TableCell align="center" sx={{ color: "#66ff99", fontWeight: "bold" }}>
+                                Distance (km)
+                            </TableCell>
+                            <TableCell align="center" sx={{ color: "#66ff99", fontWeight: "bold" }}>
                                 Duration (min)
                             </TableCell>
                             <TableCell align="center" sx={{ color: "#66ff99", fontWeight: "bold" }}>
@@ -107,6 +111,9 @@ const History = async ({searchParams}: SearchProps) => {
                                 </TableCell>
                                 <TableCell align="center" sx={{ color: "#f5f5f5" }}>
                                     {new Date(row.startTime).toLocaleDateString()}
+                                </TableCell>
+                                <TableCell align="center" sx={{ color: "#f5f5f5" }}>
+                                    {row.distance}
                                 </TableCell>
                                 <TableCell align="center" sx={{ color: "#f5f5f5" }}>
                                     {row.duration}

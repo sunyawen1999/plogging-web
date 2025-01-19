@@ -7,6 +7,7 @@ import { HiHome } from "react-icons/hi";
 import { twMerge } from "tailwind-merge";
 import toast from "react-hot-toast";
 import axios from "axios";
+import LoginDialog from "./LoginDialog";
 
 import Button from "./Button";
 import { useAuth } from "@/providers/AuthProvider";
@@ -20,29 +21,15 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ children, className }) => {
     const { user, setUser } = useAuth();
     const router = useRouter();
+    const [isDialogOpen, setDialogOpen] = useState(false);
 
-    const handleLogout = () => {
-
-        setUser(null); // 清除用户状态
-        toast.success("Logged out");
-        router.refresh();
+    const handleMockLogin = (email: string, password: string) => {
+        const mockName = "Mia";
+        console.log("Mock Login:", { email, password });
+        setUser({ name: mockName, email });
+        setDialogOpen(false);
+        toast.success("Logged in successfully!");
     };
-
-    const handleGoogleLogin = async () => {
-        try {
-            const { data } = await axios.get("http://<backend-url>/login", { withCredentials: true });
-            if (data.url) {
-                window.location.href = data.url; // Redirect to Google login page
-            } else {
-                throw new Error("Google login URL not provided");
-            }
-        } catch (error) {
-            toast.error("Failed to initiate Google login");
-            console.error("Error fetching Google login URL:", error);
-        }
-    };
-    
-    
 
     return (
         <>
@@ -60,15 +47,26 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                     <div className="flex justify-between items-center gap-x-4">
                         {user ? (
                             <div className="flex gap-x-4 items-center">
-                                <Button onClick={handleLogout} className="bg-white px-6 py-2">Logout</Button>
-                                <Button onClick={() => router.push('/authRedirect')} className="bg-white">
+
+                        <Button
+                          className="
+                            bg-transparent
+                            text-neutral-300
+                            font-medium
+                          "
+                        >
+                          Sign up
+                        </Button>
+
+                                <Button onClick={() => setUser(null)} className="bg-white px-6 py-2">Logout</Button>
+                                <Button className="bg-white">
                                     <FaUserAlt />
                                 </Button>
                             </div>
                         ) : (
                             <>
-                                <Button onClick={handleGoogleLogin} className="bg-white px-6 py-2">
-                                    Log in with Google
+                                <Button onClick={() => setDialogOpen(true)} className="bg-white px-6 py-2">
+                                    Log in
                                 </Button>
                             </>
                         )}
@@ -76,6 +74,12 @@ const Header: React.FC<HeaderProps> = ({ children, className }) => {
                 </div>
                 {children}
             </div>
+            {/* Mock Login Dialog */}
+            <LoginDialog
+                isOpen={isDialogOpen}
+                onClose={() => setDialogOpen(false)}
+                onLogin={handleMockLogin}
+            />
         </>
     );
 };
