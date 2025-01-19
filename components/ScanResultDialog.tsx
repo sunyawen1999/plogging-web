@@ -1,3 +1,5 @@
+"use client"
+
 import { Dialog, DialogTitle, DialogContent } from "@mui/material";
 import Button from "./Button";
 import { useState, useEffect, useRef } from "react";

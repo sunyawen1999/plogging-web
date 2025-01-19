@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import { Dialog, DialogTitle, DialogContent, Button } from "@mui/material";
 import Lottie from "react-lottie";

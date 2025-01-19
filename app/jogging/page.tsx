@@ -1,23 +1,30 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-
-import ScanResultDialog from '@/components/ScanResultDialog';
-import SummaryDialog from '@/components/SummaryDialog';
+import dynamic from 'next/dynamic'; // 动态加载组件
 import Header from '@/components/Header';
 import Button from '@/components/Button';
 import { Button as MUIButton, Box, Typography } from '@mui/material';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+
+// 动态加载组件，禁用 SSR
+const ScanResultDialog = dynamic(() => import('@/components/ScanResultDialog'), { ssr: false });
+const SummaryDialog = dynamic(() => import('@/components/SummaryDialog'), { ssr: false });
 
 export default function JoggingPage() {
     const [scanResultOpen, setScanResultOpen] = useState(false);
     const [isUploading, setIsUploading] = useState(false);
     const [summaryOpen, setSummaryOpen] = useState(false);
     const [scanResult, setScanResult] = useState({ category: '', color: '' });
-    const [summary, setSummary] = useState({ distance: 0, duration: 0,startTime: '',endTime: '',
+    const [summary, setSummary] = useState({
+        distance: 0,
+        duration: 0,
+        startTime: '',
+        endTime: '',
         blueNo: 0,
         greenNo: 0,
-        blackNo: 0 });
+        blackNo: 0,
+    });
 
     const [timeElapsed, setTimeElapsed] = useState(0); // Seconds elapsed
 
@@ -40,7 +47,7 @@ export default function JoggingPage() {
 
     const handleUploadTrash = async (file: File | undefined) => {
         if (!file) return; // Handle the case where no file is selected
-        console.log("Uploaded file:", file);
+        console.log('Uploaded file:', file);
 
         // Simulate fetching scan result from backend
         const mockResult = { category: 'Plastic', color: 'Blue' };
@@ -55,12 +62,15 @@ export default function JoggingPage() {
 
     const handleEndJogging = async () => {
         // Simulate fetching summary from backend
-        const mockSummary = { distance: 0.1, duration: 2,
-            startTime: "2025-01-19T09:00:00",
-            endTime: "2025-01-19T10:00:00",
+        const mockSummary = {
+            distance: 0.1,
+            duration: 2,
+            startTime: '2025-01-19T09:00:00',
+            endTime: '2025-01-19T10:00:00',
             blueNo: 1,
             greenNo: 0,
-            blackNo: 0}
+            blackNo: 0,
+        };
 
         setSummary(mockSummary);
         setSummaryOpen(true);
@@ -68,19 +78,19 @@ export default function JoggingPage() {
 
     return (
         <div>
-            <div className="
+            <div
+                className="
               bg-neutral-900
               rounded-lg
               h-full
               w-full
               overflow-hidden
               overflow-y-auto
-            ">
+            "
+            >
                 <Header>
                     <div className="mb-2 flex flex-col gap-y-6">
-                        <h1 className="text-white text-3xl font-semibold">
-                            Jogging Tracker
-                        </h1>
+                        <h1 className="text-white text-3xl font-semibold">Jogging Tracker</h1>
                     </div>
                 </Header>
 
@@ -88,21 +98,21 @@ export default function JoggingPage() {
                     {/* Timer */}
                     <Box
                         sx={{
-                            backgroundColor: "#1e1e1e",
-                            borderRadius: "8px",
-                            padding: "10px 20px",
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            width: "auto",
+                            backgroundColor: '#1e1e1e',
+                            borderRadius: '8px',
+                            padding: '10px 20px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            width: 'auto',
                         }}
                     >
                         <Typography
                             variant="h5"
                             sx={{
-                                color: "#66ff99",
+                                color: '#66ff99',
                                 fontFamily: "'Courier New', Courier, monospace",
-                                fontWeight: "bold",
+                                fontWeight: 'bold',
                             }}
                         >
                             Jogging Time: {formatTime(timeElapsed)}
@@ -111,19 +121,21 @@ export default function JoggingPage() {
 
                     {/* Upload Button with File Input */}
                     <Box>
-                        <input
-                            accept="image/*"
-                            capture="environment" // Allows camera access on mobile devices
-                            style={{ display: 'none' }}
-                            id="upload-button-file"
-                            type="file"
-                            onChange={handleFileChange}
-                        />
+                        {typeof window !== 'undefined' && (
+                            <input
+                                accept="image/*"
+                                capture="environment" // Allows camera access on mobile devices
+                                style={{ display: 'none' }}
+                                id="upload-button-file"
+                                type="file"
+                                onChange={handleFileChange}
+                            />
+                        )}
                         <label htmlFor="upload-button-file">
                             <MUIButton
                                 component="span"
                                 className="bg-green-500 hover:bg-green-600 text-black px-6 py-2"
-                                startIcon={<UploadFileIcon focusable="false"  />}
+                                startIcon={<UploadFileIcon focusable="false" />}
                             >
                                 Snap and Sort Waste with AI
                             </MUIButton>
@@ -144,15 +156,11 @@ export default function JoggingPage() {
                     open={scanResultOpen}
                     onClose={() => setScanResultOpen(false)}
                     result={scanResult}
-                    setIsUploading={setIsUploading} 
+                    setIsUploading={setIsUploading}
                 />
 
                 {/* Summary Dialog */}
-                <SummaryDialog
-                    open={summaryOpen}
-                    onClose={() => setSummaryOpen(false)}
-                    summary={summary}
-                />
+                <SummaryDialog open={summaryOpen} onClose={() => setSummaryOpen(false)} summary={summary} />
             </div>
         </div>
     );
