@@ -27,7 +27,7 @@ export default function Home() {
               sont-semibold
             "
           >
-            Welcome to Jogging the world!
+            Welcome to Plogging the world!
           </h1>
 
         </div>
